@@ -1,0 +1,23 @@
+<h1>Users#index</h1>
+<p>Find me in app/views/users/index.html.erb</p>
+
+<% if user_signed_in? %>
+  Signed in as <strong><%= current_user.email %></strong>.
+  <%= link_to 'Edit profile', edit_user_registration_path %> |
+  <%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }  %>
+<% else %>
+  <%= link_to "Sign up", new_user_registration_path  %> |
+  <%= link_to "Login", new_user_session_path %>
+<% end %>
+<hr />
+<% @users.each do |user| %>
+  <p><%= user.email %>
+    <%= link_to block_user_path(user), data: { turbo_method: :post } do %>
+      <span class="btn btn-primary">
+        <%= current_user.blocked?(user) ? 'Unblock' : 'Block' %>
+      </span>
+    <% end %>
+    | <%= link_to 'Show', user %>
+    | Blocked you: <%= user.blocked?(current_user) %>
+<% end %>
+

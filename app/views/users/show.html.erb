@@ -1,0 +1,10 @@
+<h1><%= @user.email %></h1>
+<h3>Posts</h3>
+<% if @posts.empty? %>
+  <p>Oops, there's nothing here.</p>
+<% else %>
+  <% @posts.each do |post| %>
+    <p style="color:blue; font-weight: bold;"><%= post.title %></p>
+    <p><%= post.body %></p>
+  <% end %>
+<% end %>
